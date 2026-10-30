@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+"""Return the clpeak workload bound; Rickshaw adds its own padding."""
+
+import argparse
+import sys
+
+from clpeak_common import normalize_positive_int
+
+
+def main(argv):
+    parser = argparse.ArgumentParser(description="Get the clpeak runtime bound")
+    parser.add_argument("--deadline", default="900")
+    args, _ = parser.parse_known_args(argv)
+    deadline = normalize_positive_int(args.deadline, "deadline", 30, 86400)
+    print(deadline)
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except ValueError as exc:
+        print("clpeak runtime error: %s" % exc, file=sys.stderr)
+        sys.exit(2)

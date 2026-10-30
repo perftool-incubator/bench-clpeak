@@ -1,0 +1,40 @@
+{
+  "format_version": 3,
+  "clpeak_version": "1.1.8",
+  "devices": [
+    {
+      "backend": "CUDA",
+      "name": "Test GPU",
+      "device_index": 0,
+      "tests": [
+        {
+          "id": "single_precision_compute",
+          "variant": "AVX-512",
+          "unit": "FLOPS",
+          "direction": "higher_is_better",
+          "metrics": [
+            { "id": "float", "value": 12345.0 },
+            { "id": "half", "status": "unsupported", "reason": "not supported" }
+          ]
+        },
+        {
+          "id": "global_memory_bandwidth",
+          "unit": "B/s",
+          "direction": "higher_is_better",
+          "metrics": [
+            { "id": "float4", "value": 6789.0 }
+          ]
+        },
+        {
+          "id": "kernel_launch_latency",
+          "unit": "s",
+          "direction": "lower_is_better",
+          "metrics": [
+            { "id": "roundtrip", "value": 0.000123 }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

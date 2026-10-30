@@ -1,0 +1,55 @@
+{
+  "tags": {
+    "topology": "none"
+  },
+  "endpoints": [
+    {
+      "type": "remotehosts",
+      "remotes": [
+        {
+          "engines": [
+            { "role": "client", "ids": "1" }
+          ],
+          "config": {
+            "host": "gpu-host.example.com",
+            "settings": {
+              "userenv": "rocm",
+              "osruntime": "podman",
+              "podman-settings": {
+                "device": [
+                  "/dev/kfd",
+                  "/dev/dri"
+                ],
+                "shm-size": "8gb"
+              },
+              "cpu-partitioning": false
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "run-params": {
+    "num-samples": 1,
+    "max-sample-failures": 1,
+    "test-order": "r"
+  },
+  "benchmarks": [
+    {
+      "name": "clpeak",
+      "ids": "1",
+      "mv-params": {
+        "sets": [
+          {
+            "params": [
+              { "arg": "tests", "vals": ["compute,bandwidth,latency"] },
+              { "arg": "devices", "vals": ["rocm:0"] },
+              { "arg": "max-time-gpu", "vals": ["250"] },
+              { "arg": "deadline", "vals": ["900"] }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

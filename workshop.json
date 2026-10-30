@@ -1,0 +1,84 @@
+{
+  "workshop": {
+    "schema": {
+      "version": "2020.03.02"
+    }
+  },
+  "userenvs": [
+    {
+      "name": "default",
+      "requirements": [
+        "clpeak_build_tools",
+        "clpeak_build_driver",
+        "clpeak_upstream"
+      ]
+    },
+    {
+      "name": "cuda-12.8",
+      "requirements": [
+        "clpeak_build_tools",
+        "clpeak_build_driver",
+        "clpeak_upstream"
+      ]
+    },
+    {
+      "name": "rocm",
+      "requirements": [
+        "clpeak_build_tools",
+        "clpeak_build_driver",
+        "clpeak_upstream"
+      ]
+    },
+    {
+      "name": "oneapi",
+      "requirements": [
+        "clpeak_build_tools",
+        "clpeak_build_driver",
+        "clpeak_upstream"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "clpeak_build_tools",
+      "type": "distro",
+      "distro_info": {
+        "packages": [
+          "cmake",
+          "make",
+          "clang",
+          "python3",
+          "tar",
+          "gzip"
+        ]
+      }
+    },
+    {
+      "name": "clpeak_build_driver",
+      "type": "files",
+      "files_info": {
+        "files": [
+          {
+            "src": "%bench-dir%/clpeak-build.py",
+            "dst": "/tmp/clpeak-build.py"
+          }
+        ]
+      }
+    },
+    {
+      "name": "clpeak_upstream",
+      "type": "source",
+      "source_info": {
+        "url": "https://github.com/krrishnarraj/clpeak/archive/b5da52485bb6873aef54ff30c3fe81037e523eac.tar.gz",
+        "filename": "clpeak-b5da52485bb6873aef54ff30c3fe81037e523eac.tar.gz",
+        "commands": {
+          "unpack": "tar -xzf clpeak-b5da52485bb6873aef54ff30c3fe81037e523eac.tar.gz",
+          "get_dir": "echo clpeak-b5da52485bb6873aef54ff30c3fe81037e523eac",
+          "commands": [
+            "python3 /tmp/clpeak-build.py"
+          ]
+        }
+      }
+    }
+  ]
+}

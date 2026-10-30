@@ -1,0 +1,33 @@
+#!/bin/bash
+# -*- mode: sh; indent-tabs-mode: nil; sh-basic-offset: 4 -*-
+# vim: autoindent tabstop=4 shiftwidth=4 expandtab softtabstop=4 filetype=sh
+
+. /usr/bin/clpeak-base || exit 1
+
+validate_sw_prereqs python3 || exit_error "clpeak requires Python 3" 1
+
+forward_signal() {
+    local signal_name="$1"
+    if [[ -n "${python_pid:-}" ]]; then
+        kill -s "${signal_name}" "${python_pid}" 2>/dev/null || true
+        wait "${python_pid}" 2>/dev/null || true
+    fi
+    exit_error "clpeak run interrupted by ${signal_name}" 1
+}
+
+trap 'forward_signal TERM' TERM
+trap 'forward_signal INT' INT
+
+python3 /usr/bin/clpeak-client.py "$@" &
+python_pid=$!
+wait "${python_pid}"
+rc=$?
+trap - TERM INT
+
+if [[ ${rc} -ne 0 ]]; then
+    message="clpeak run failed"
+    if [[ -s clpeak-error.txt ]]; then
+        message=$(cat clpeak-error.txt)
+    fi
+    exit_error "${message}" "${rc}"
+fi

@@ -1,0 +1,24 @@
+{
+  "rickshaw-benchmark": {
+    "schema": {
+      "version": "2020.05.18"
+    }
+  },
+  "benchmark": "clpeak",
+  "controller": {
+    "post-script": "%bench-dir%clpeak-post-process.py"
+  },
+  "client": {
+    "files-from-controller": [
+      { "src": "%bench-dir%/clpeak-base", "dest": "/usr/bin/" },
+      { "src": "%bench-dir%/clpeak_common.py", "dest": "/usr/bin/" },
+      { "src": "%bench-dir%/clpeak-client.py", "dest": "/usr/bin/" },
+      { "src": "%bench-dir%/clpeak-post-process.py", "dest": "/usr/bin/" },
+      { "src": "%bench-dir%/clpeak-get-runtime", "dest": "/usr/bin/" },
+      { "src": "%bench-dir%/clpeak-client", "dest": "/usr/bin/" }
+    ],
+    "runtime": "clpeak-get-runtime",
+    "start": "clpeak-client"
+  }
+}
+

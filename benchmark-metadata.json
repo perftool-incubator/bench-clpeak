@@ -1,0 +1,30 @@
+{
+  "rickshaw-benchmark-metadata": {
+    "schema": {
+      "version": "2026.08.11"
+    }
+  },
+  "benchmark": "clpeak",
+  "description": "Runs pinned clpeak CUDA, ROCm/HIP, oneAPI/SYCL, and CPU microbenchmarks enabled by the selected userenv image.",
+  "cdm_indexed": true,
+  "cdm_sources": [
+    {
+      "source": "clpeak",
+      "types": [
+        "flops",
+        "ops-sec",
+        "bytes-sec",
+        "texels-sec",
+        "seconds",
+        "ppm"
+      ]
+    }
+  ],
+  "output_files": [
+    "clpeak-result.json",
+    "clpeak-client-stderrout.txt",
+    "clpeak-run-manifest.json",
+    "clpeak-error.txt"
+  ]
+}
+
